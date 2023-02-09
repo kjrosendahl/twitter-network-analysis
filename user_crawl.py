@@ -2,7 +2,7 @@ import tweepy
 import numpy as np 
 
 # read and initialize authentication keys 
-with open('auth-keys.txt', 'r') as f: 
+with open('auth_keys.txt', 'r') as f: 
     lines = [line.rstrip() for line in f] 
 consumer_key, consumer_secret, access_token, access_token_secret = lines[:]
 
