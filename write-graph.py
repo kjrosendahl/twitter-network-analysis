@@ -44,12 +44,11 @@ def parse_network(file_name):
 
     return edges 
 
-def draw_graph(file_name): 
-    edge_list = parse_network(file_name)
+def draw_graph(edges): 
 
     # create graph from edge list 
     DG = nx.DiGraph()
-    DG.add_weighted_edges_from(edge_list)
+    DG.add_weighted_edges_from(edges)
 
     # draw graph 
     plt.figure(1, figsize=(15, 15))
@@ -57,3 +56,21 @@ def draw_graph(file_name):
     # save graph 
     plt.savefig('network-graph.png')
     plt.show()
+
+def plot_degree_dist(edges): 
+        
+    DG = nx.DiGraph() 
+    DG.add_weighted_edges_from(edges)
+
+    deg_centrality = nx.in_degree_centrality(DG) 
+    centrality_values = list(deg_centrality.values())
+
+    plt.hist(centrality_values, bins=12)
+    plt.xlabel('Degree Centrality')
+    plt.ylabel('Frequency')
+    plt.title('Frequency vs Degree Centrality')
+    plt.savefig('degree-dist-hist.png')
+    plt.show() 
+
+edges = parse_network('users.txt')
+
