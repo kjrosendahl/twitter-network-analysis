@@ -55,9 +55,11 @@ def draw_graph(graph):
 
 def plot_degree_dist(graph): 
 
+    # calculate degree distribution
     deg_centrality = nx.in_degree_centrality(graph) 
     centrality_values = list(deg_centrality.values())
 
+    # save and show plot
     plt.hist(centrality_values, bins=12)
     plt.xlabel('Degree Centrality')
     plt.ylabel('Frequency')
@@ -67,8 +69,11 @@ def plot_degree_dist(graph):
 
 def plot_closeness_dist(graph): 
     
+    # calculate closeness centrality
     closeness_centrality = nx.closeness_centrality(graph)
     centrality_values = list(closeness_centrality.values())
+
+    # save and show plot
     plt.hist(centrality_values, bins=8)
     plt.xlabel('Closeness Centrality')
     plt.ylabel('Frequency')
@@ -78,15 +83,27 @@ def plot_closeness_dist(graph):
 
 def plot_betweenness_dist(graph): 
     
+    # calculate betweenness centrality
     between_centrality = nx.betweenness_centrality(graph)
     centrality_values = list(between_centrality.values())
-    plt.hist(centrality_values, bins=12)
+    
+    # save and show plot
+    plt.hist(centrality_values, bins=8)
     plt.xlabel('Betweenness Centrality')
     plt.ylabel('Frequency')
     plt.title('Frequency vs Betweenness Centrality')
     plt.savefig('betweenness-hist.png')
     plt.show() 
 
+# create di-graph from edges 
 edges = parse_network('users.txt')
 DG = nx.DiGraph() 
 DG.add_weighted_edges_from(edges)
+
+# draw the network
+draw_graph(DG)
+
+# calculate and plot network measurements 
+plot_degree_dist(DG)
+plot_closeness_dist(DG)
+plot_betweenness_dist(DG)
