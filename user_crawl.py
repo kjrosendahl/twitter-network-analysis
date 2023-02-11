@@ -53,11 +53,13 @@ while queue and user_count < max_users:
             if (follower_obj.friends_count > 200) or (follower_obj.followers_count > 200): 
                 continue 
 
-            # if new user, add to user dictionary 
+            # if previously seen user, update their followers list 
             if start_user in user_dict: 
                 user_dict[start_user].append(follower) 
-            # if previously seen user, update their followers list 
+                
+            # if new user, add to user dictionary 
             else: 
+                
                 user_dict[start_user] = [follower]
                 queue.append(follower)
                 user_count += 1
@@ -77,10 +79,11 @@ while queue and user_count < max_users:
             if (friend_obj.friends_count > 200) or (friend_obj.followers_count > 200): 
                 continue 
             
-            # if friend is a new user, add to user dictionary 
+            
+            # if previously seen, update their followers list 
             if friend in user_dict: 
                 user_dict[friend].append(start_user)
-            # if previously seen, update their followers list 
+            # if friend is a new user, add to user dictionary 
             else: 
                 user_dict[friend] = [start_user]
                 queue.append(friend)
@@ -97,7 +100,7 @@ while queue and user_count < max_users:
         pass
 
 # write user dictionary to file 
-# print(user_count)
-# with open('users.txt', 'w') as f:
-#     for key, value in user_dict.items(): 
-#         f.write('%s|%s\n' %(key, value))
+print(user_count)
+with open('users.txt', 'w') as f:
+    for key, value in user_dict.items(): 
+        f.write('%s|%s\n' %(key, value))
